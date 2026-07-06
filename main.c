@@ -78,8 +78,8 @@ static void I2S_ExtractMono(int32_t *raw, uint8_t half)
     for (uint16_t i = 0; i < MIC_SAMPLES_PER_PACKET; i++)
     {
         int32_t sample = (int16_t)(raw[i * 2] & 0xFFFF);
-        sample *= 4;                          // SỬA: gain x8, thử tăng/giảm tuỳ nghe
-        if (sample > 32767) sample = 32767;   // clamp tránh clip/overflow
+        sample *= 4;                          // This is gain multiplier, in/decrease if the sound is having trouble
+        if (sample > 32767) sample = 32767;   
         if (sample < -32768) sample = -32768;
         dest[i] = (int16_t)sample;
     }
